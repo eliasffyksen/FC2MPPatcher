@@ -121,7 +121,7 @@ bool Patcher::patch(QWidget* parent, const QDir &dir)
                     undoPatch(dir);
                     QMessageBox::warning(parent, "Warning", QT_TR_NOOP(QString("Invalid checksum for patched file %1, aborting!").arg(fileEntry.getName())));
 
-                    return false;
+                    //return false;
                 }
 
                 count++;
