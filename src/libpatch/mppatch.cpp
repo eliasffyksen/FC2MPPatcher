@@ -27,6 +27,45 @@ void MPPatch::readSettings()
     // TODO: Delete settings?
 }
 
+QNetworkInterface MPPatch::findValidInterface(int hintIndex)
+{
+    QList<QNetworkInterface> list = QNetworkInterface::allInterfaces();
+
+    // Replace stored interface in list.
+    if (hintIndex > 0) {
+        const QNetworkInterface networkInterface = QNetworkInterface::interfaceFromIndex(hintIndex);
+
+        // Removed identical network interface from list.
+        if (!list.contains(networkInterface)) {
+            const QNetworkInterface interfaceToRemove = networkInterface;
+            list.removeAt(list.indexOf(interfaceToRemove));
+        }
+
+        // Insert network interface.
+        list.prepend(networkInterface);
+    }
+
+    // Loop thru all of the systems network interfaces.
+    for (const QNetworkInterface &networkInterface : list) {
+        const QNetworkInterface::InterfaceFlags &flags = networkInterface.flags();
+
+        // We only want active network interfaces and not loopback interfaces.
+        if (flags.testFlag(QNetworkInterface::IsUp) && !flags.testFlag(QNetworkInterface::IsLoopBack)) {
+            QNetworkAddressEntry selectedAddressEntry;
+
+            // Scan thru addresses for this interface.
+            for (const QNetworkAddressEntry &addressEntry : networkInterface.addressEntries()) {
+                // We're onlt looking for IPv4 addresses.
+                if (addressEntry.ip().protocol() == QAbstractSocket::IPv4Protocol) {
+                    return networkInterface;
+                }
+            }
+        }
+    }
+
+    return QNetworkInterface();
+}
+
 unsigned long __stdcall MPPatch::getAdaptersInfo_patch(IP_ADAPTER_INFO* adapterInfo, unsigned long* sizePointer)
 {
     unsigned long result = GetAdaptersInfo(adapterInfo, sizePointer);
