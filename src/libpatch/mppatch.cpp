@@ -90,8 +90,6 @@ hostent* WSAAPI __stdcall MPPatch::getHostByName_patch(const char* name)
 
     return gethostbyname(address.toStdString().c_str());
 }
-<<<<<<< HEAD
-=======
 
 int WSAAPI __stdcall MPPatch::sendTo_patch(SOCKET s, const char* buf, int len, int flags, const sockaddr* to, int tolen)
 {
@@ -122,4 +120,15 @@ int WSAAPI __stdcall MPPatch::connect_patch(SOCKET s, const sockaddr *name, int 
 
     return connect(s, name, namelen);
 }
->>>>>>> Testing custom maps.
+
+sockaddr* __thiscall MPPatch::GetSockAddr_patch(void* param_1)
+{
+    Q_UNUSED(param_1);
+
+    sockaddr_in* addr_in = new sockaddr_in();
+    addr_in->sin_family = AF_INET;
+    addr_in->sin_addr.s_addr = inet_addr("128.39.166.52");
+    addr_in->sin_port = htons(9000);
+
+    return reinterpret_cast<sockaddr*>(addr_in);
+}
