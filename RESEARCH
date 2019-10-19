@@ -1,0 +1,17 @@
+Custom Map:
+	Problem is that client and server wrong IP address is annonces thru Ubisoft's backed, 
+        which results in clients trying to download maps from servers RFC1918 address over the Internet.
+	
+	Maybe this is public IP detection stuff gone horribly wrong?
+
+Community Map Server:
+	The community map server seems to work if user login with their actual Ubi.com account, 
+	one important thing to notice is that Far Cry 2 cannot handle password exceeding 12 characters.
+        
+        So when using a password with less characters than that, you can access the community map server.
+	
+	Since the community map server communicates over HTTP, the library winhttp.dll is used.
+        Users report that stock winhttp.dll's from Windows 7 and Windows 10 do not work when eiher downloading or uploading maps, so we need to look into why that is.
+	Simply putting a old winhttp.dll file in Far Cry 2's bin folder is a dirty fix, problably just a function call that as changed.
+
+	I can report that everything is working out-of-the-box under WINE without altering any dll overrides.
