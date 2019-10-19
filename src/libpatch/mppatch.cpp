@@ -91,6 +91,7 @@ hostent* WSAAPI __stdcall MPPatch::getHostByName_patch(const char* name)
     return gethostbyname(address.toStdString().c_str());
 }
 
+<<<<<<< HEAD
 int WSAAPI __stdcall MPPatch::sendTo_patch(SOCKET s, const char* buf, int len, int flags, const sockaddr* to, int tolen)
 {
     sockaddr_in* to_in = reinterpret_cast<sockaddr_in*>(const_cast<sockaddr*>(to));
@@ -121,6 +122,8 @@ int WSAAPI __stdcall MPPatch::connect_patch(SOCKET s, const sockaddr *name, int 
     return connect(s, name, namelen);
 }
 
+=======
+>>>>>>> ec7bae9e699efb636bec3c1c4a7cb0d2edd6f649
 sockaddr* __thiscall MPPatch::GetSockAddr_patch(void* param_1)
 {
     Q_UNUSED(param_1);

@@ -94,7 +94,9 @@ const QList<FileEntry> files = {
                     { 0x10cf28e4, 0 }, // bind()
                     { 0x10013f33, 2 }, // sendTo()
                     { 0x10c6a692, 3 }, // getAdapersInfo()
-                    { 0x100141fc, 4 }  // getHostByName()
+                    { 0x100141fc, 4 }, // getHostByName()
+
+                    { 0x1021663d, 5 }  // GetSockAddr()
                 }
             },
             { // Uplay
