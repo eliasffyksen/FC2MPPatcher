@@ -12,10 +12,10 @@ public:
         NEW_DATA
     };
 
-    CodeEntry(unsigned int address, unsigned int word, const QString &section = ".text", Type type = INJECT_SYMBOL) :
+    CodeEntry(uint32_t address, uint32_t word, const QString &section = ".text", Type type = INJECT_SYMBOL) :
         CodeEntry(address, QByteArray::number(word), section, type) {}
 
-    CodeEntry(unsigned int address, const QByteArray &data, const QString &section = ".text", Type type = INJECT_DATA) :
+    CodeEntry(uint32_t address, const QByteArray &data, const QString &section = ".text", Type type = INJECT_DATA) :
         address(address),
         data(data),
         section(section),
@@ -26,7 +26,7 @@ public:
         section(section),
         type(type) {}
 
-    unsigned int getAddress() const {
+    uint32_t getAddress() const {
         return address;
     }
 
@@ -43,7 +43,7 @@ public:
     }
 
 private:
-    unsigned int address = 0;
+    uint32_t address = 0;
     QByteArray data;
     QString section;
     Type type;
